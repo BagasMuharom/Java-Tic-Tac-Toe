@@ -1,8 +1,14 @@
 package Main;
 
-import javax.swing.*;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,7 +16,7 @@ import java.awt.event.ActionListener;
  * Class ini digunakan untuk membuat JDialog ketika user ingin memulai permainan baru
  * Dibuat terpisah dengan Class JFrame agar lebih terstruktur
  */
-public class PermainanBaru extends JDialog implements MainLayout{
+public class NewGame extends JDialog implements MainLayout{
 
     private JPanel pvpPanel = new JPanel();
     private JPanel pvePanel = new JPanel();
@@ -26,8 +32,6 @@ public class PermainanBaru extends JDialog implements MainLayout{
     private boolean gameStart = false;
     private boolean gamePVP = false;
 
-    private Frame owner;
-
     /**
      * Judul Utama
      */
@@ -36,13 +40,10 @@ public class PermainanBaru extends JDialog implements MainLayout{
     /**
      * Konstruktor override untuk JDialog
      * Digunakan untuk melakukan inisialisasi JDialog
-     * @param owner
-     * @param modal
      */
-    public PermainanBaru(Frame owner, boolean modal){
-        super(owner,modal);
+    public NewGame(){
+        super(Constants.TicTacToeParentFrame,true);
         setTitle("Permainan Baru");
-        this.owner = owner;
         actions();
         init();
     }
@@ -54,8 +55,8 @@ public class PermainanBaru extends JDialog implements MainLayout{
                 player1 = JOptionPane.showInputDialog("Nama Player 1");
                 //Jika klik OK
                 if(getPlayer1() != null){
-                    //Jika tidak ada isiya
-                    if(getPlayer1().length()>1){
+                    //Jika ada isiya
+                    if(getPlayer1().length()>0){
                         player2 = JOptionPane.showInputDialog("Nama Player 2");
                         //Jika klik OK
                         if(getPlayer2() != null){
@@ -65,8 +66,8 @@ public class PermainanBaru extends JDialog implements MainLayout{
                                 setVisible(false);
                             }
                             else {
-                                while (getPlayer2().length() < 1 || getPlayer2() == null){
-                                    player2 = JOptionPane.showInputDialog("Nama Player 1");
+                                while (getPlayer2().length() <= 0  || getPlayer2() == null){
+                                    player2 = JOptionPane.showInputDialog("Nama Player 2");
                                 }
                             }
                         }
@@ -75,7 +76,7 @@ public class PermainanBaru extends JDialog implements MainLayout{
                         }
                     }
                     else {
-                        while (getPlayer1().length() < 1 || getPlayer1() == null){
+                        while (getPlayer1().length() <=0 || getPlayer1() == null){
                             player1 = JOptionPane.showInputDialog("Nama Player 1");
                         }
                     }
@@ -94,7 +95,7 @@ public class PermainanBaru extends JDialog implements MainLayout{
         setSize(200,200);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(owner);
+        setLocationRelativeTo(Constants.TicTacToeParentFrame);
         setLayout(new BorderLayout());
 
         //Main Title

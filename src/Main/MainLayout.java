@@ -6,12 +6,12 @@ package Main;
 public interface MainLayout {
 
     /**
-     * Berfungsi untuk memberikan actionListener pada button atau objek lain
+     * Berfungsi untuk memberikan ActionListener pada objek Swing
      */
     void actions();
 
     /**
-     * Berfungsi untuk mengatur tampilan obajek
+     * Berfungsi untuk mengatur tampilan objek Swing
      */
     void init();
 

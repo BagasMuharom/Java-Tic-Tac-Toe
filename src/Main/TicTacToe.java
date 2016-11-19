@@ -1,22 +1,44 @@
 package Main;
 
-import javax.swing.*;
+/*
+ * Ini merupakan permainan TicTacToe versi Java dengan Swing sebagai GUI
+ */
+
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import java.awt.*;
 
-public class TicTacToe extends JFrame {
+public class TicTacToe extends JFrame implements MainLayout {
 
-    private CardLayout cl = new CardLayout();
-    private JPanel rootPanel = new JPanel();
-    private MenuUtama container1 = new MenuUtama(this);
-    private Playboard container2 = new Playboard();
+    private View View = new View();
+    private Controller Controller = new Controller();
 
     public TicTacToe(){
+        // Memberi Judul Window
         super("Tic Tac Toe");
+
+        //Mengatur Konstanta
+        Constants.Frame = this;
+        Constants.View = this.View;
+        Constants.Controller = this.Controller;
+        Constants.TicTacToeParentFrame = this;
+
+        //Mengatur Icon pada Window
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")));
-        initComponents();
+
+        //Inisialisasi Komponen
+        init();
     }
 
     public static void main(String[] args) {
+        /*
+         * Disinilah aplikasi dimulai :)
+         */
+        setLookAndFeel();
+        new TicTacToe();
+    }
+
+    private static void setLookAndFeel(){
         /*
          * Mengatur Look and Feel
          */
@@ -36,42 +58,25 @@ public class TicTacToe extends JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TicTacToe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-        /*
-         * Disinilah aplikasi dimulai :)
-         */
-        new TicTacToe();
     }
 
-    private void initComponents() {
+    @Override
+    public void actions() {
+
+    }
+
+    public void init(){
         //Frame
-        setSize(400, 400);
-        setResizable(false);
+        setSize(400, 550);
+        setMinimumSize(new Dimension(400,550));
+        setResizable(true);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        //Mengatur tampilan semua JPanel
-        getRootPanel().setLayout(getCl());
-
-        //Root Panel
-        getRootPanel().add(container1,"1");
-        getRootPanel().add(container2,"2");
-        container1.frame = this;
-
-        //Menampilkan menu utama
-        getCl().show(getRootPanel(),"1");
-
         //Frame
-        add(getRootPanel(), BorderLayout.CENTER);
+        add(View, BorderLayout.CENTER);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    public CardLayout getCl() {
-        return cl;
-    }
-
-    public JPanel getRootPanel() {
-        return rootPanel;
-    }
 }

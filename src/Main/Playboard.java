@@ -1,18 +1,25 @@
 package Main;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Playboard extends JPanel implements MainLayout{
 
     private JPanel mainPanel = new JPanel();
     private JPanel mainGrid = new JPanel();
-
-    private String namaPlayer1;
-    private String namaPlayer2;
-    private String giliranSekarang;
+    private JPanel giliranPanel = new JPanel();
+    private JPanel player1Panel = new JPanel();
+    private JPanel player2Panel = new JPanel();
 
     private JLabel player1 = new JLabel();
     private JLabel player2 = new JLabel();
@@ -20,37 +27,58 @@ public class Playboard extends JPanel implements MainLayout{
 
     private ArrayList<XOButton> xo = new ArrayList<>();
 
+    private byte gridRow = 4;
+    private byte gridCol = 3;
+    private byte gap = 10;
+
     public Playboard(){
-        actions();
         init();
+        actions();
     }
 
     public void actions(){
-
+        for(byte i=0;i<9;i++){
+            xo.get(i).addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null,"Selamat, anda menang !");
+                    Constants.View.setView("MainMenu");
+                }
+            });
+        }
     }
 
     public void init(){
         //Main Panel
         setLayout(new BorderLayout());
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBorder(new EmptyBorder(10,10,10,10));
-        mainGrid.setLayout(new GridLayout(4,3,10,10));
+        mainPanel.setBorder(new EmptyBorder(gap,gap,gap,gap));
+        mainGrid.setLayout(new GridLayout(gridRow,gridCol,gap,gap));
 
-        player1.setText(getNamaPlayer1());
-        player2.setText(getNamaPlayer2());
-        giliran.setText(getGiliranSekarang());
-        player1.setHorizontalAlignment(SwingConstants.CENTER);
-        player2.setHorizontalAlignment(SwingConstants.CENTER);
-        giliran.setHorizontalAlignment(SwingConstants.CENTER);
+        player1.setFont(new Font("Algerian",Font.PLAIN,20));
+        player2.setFont(new Font("Algerian",Font.PLAIN,20));
 
-        mainGrid.add(player1);
-        mainGrid.add(player2);
-        mainGrid.add(giliran);
+        getGiliran().setText(getGiliran().getText());
+        getPlayer1().setHorizontalAlignment(SwingConstants.CENTER);
+        getPlayer2().setHorizontalAlignment(SwingConstants.CENTER);
+        getGiliran().setHorizontalAlignment(SwingConstants.CENTER);
 
-        //Inisialisasi XO Button
-        for(int i=0;i<9;i++){
+        player1Panel.setLayout(new BoxLayout(player1Panel,BoxLayout.X_AXIS));
+        player2Panel.setLayout(new BoxLayout(player2Panel,BoxLayout.X_AXIS));
+        giliranPanel.setLayout(new BoxLayout(giliranPanel,BoxLayout.X_AXIS));
+
+        player1Panel.add(player1);
+        player2Panel.add(player2);
+        giliranPanel.add(giliran);
+
+        mainGrid.add(player1Panel);
+        mainGrid.add(player2Panel);
+        mainGrid.add(giliranPanel);
+
+        // Inisialisasi XO Button
+        // Gunakan byte agar hemat memori
+        for(byte i=0;i<9;i++){
             xo.add(new XOButton());
-            xo.get(i).setBackground(Color.BLUE);
             mainGrid.add(xo.get(i));
         }
 
@@ -58,27 +86,28 @@ public class Playboard extends JPanel implements MainLayout{
         add(mainPanel);
     }
 
-    public String getNamaPlayer1() {
-        return namaPlayer1;
+    public JLabel getPlayer1() {
+        return player1;
     }
 
-    public void setNamaPlayer1(String namaPlayer1) {
-        this.namaPlayer1 = namaPlayer1;
+    public void setPlayer1(JLabel player1) {
+        this.player1 = player1;
     }
 
-    public String getNamaPlayer2() {
-        return namaPlayer2;
+    public JLabel getPlayer2() {
+        return player2;
     }
 
-    public void setNamaPlayer2(String namaPlayer2) {
-        this.namaPlayer2 = namaPlayer2;
+    public void setPlayer2(JLabel player2) {
+        this.player2 = player2;
     }
 
-    public String getGiliranSekarang() {
-        return giliranSekarang;
+    public JLabel getGiliran() {
+        return giliran;
     }
 
-    public void setGiliranSekarang(String giliranSekarang) {
-        this.giliranSekarang = giliranSekarang;
+    public void setGiliran(JLabel giliran) {
+        this.giliran = giliran;
     }
+
 }

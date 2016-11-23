@@ -1,6 +1,6 @@
 package Main;
 
-import java.awt.Frame;
+import java.awt.*;
 
 /**
  * Class ini berfungsi untuk menyimpan alamat dari sebuah Objek
@@ -35,5 +35,39 @@ public class Constants {
      * Alamat dari Class Controller
      */
     static Controller Controller;
+
+    /**
+     *
+     */
+    static NewGame NewGameFrame;
+
+    /**
+     * Jenis atau Tipe Permainan
+     */
+    static boolean PVP;
+
+    /**
+     * Apakah permainan sudah dimulai
+     */
+    static boolean GameStart;
+
+    /**
+     * Nama Player
+     */
+    static String Player1Name;
+    static String Player2Name;
+
+    /**
+     * Jenis level permainan yang dipilih
+     */
+    static byte GameLevel;
+
+    /**
+     * Warna
+     */
+    static Color warna1 = new Color(255, 86, 86);
+    static Color warna2 = new Color(237, 242, 246);
+    static Color warna3 = new Color(106, 126, 252);
+    static Color warna4 = new Color(73,73,83);
 
 }

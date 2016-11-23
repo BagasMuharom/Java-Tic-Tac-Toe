@@ -3,8 +3,7 @@ package Main;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Class untuk menampilkan menu utama pada aplikasi
@@ -19,10 +18,10 @@ public class MainMenu extends JPanel implements MainLayout {
 
     private JLabel mainTitle = new JLabel();
 
-    private JButton newGame = new JButton("Permainan Baru");
-    private JButton caraMain = new JButton("Cara Bermain");
-    private JButton about = new JButton("Tentang");
-    private JButton exit = new JButton("Keluar");
+    private CustomButton newGame = new CustomButton("Permainan Baru",Constants.warna3,Constants.warna4);
+    private CustomButton caraMain = new CustomButton("Cara Bermain",Constants.warna3,Constants.warna4);
+    private CustomButton about = new CustomButton("Tentang Aplikasi",Constants.warna3,Constants.warna4);
+    private CustomButton exit = new CustomButton("Keluar",Constants.warna3,Constants.warna4);
 
     private ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")));
 
@@ -35,67 +34,44 @@ public class MainMenu extends JPanel implements MainLayout {
         /*
          * Memulai permainan baru
          */
-        newGame.addActionListener(new ActionListener() {
+        newGame.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 Constants.Controller.newGameDialog();
             }
         });
-
-        /*
-         * Jika Klik Cara Bermain
-         */
-        caraMain.addActionListener(new ActionListener() {
+        caraMain.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 Constants.View.setView("HowToPlay");
             }
         });
-
-        /*
-         * Jika klik Tentang
-         */
-        about.addActionListener(new ActionListener() {
+        about.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 Constants.View.setView("About");
             }
         });
-
-        /*
-         * Keluar dari aplikasi
-         */
-        exit.addActionListener(new ActionListener() {
+        exit.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 System.exit(0);
             }
         });
+        
     }
 
     public void init(){
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20, 20, 20, 20));
+        setBackground(Constants.warna2);
 
-        //Button
-        newGame.setBackground(Color.blue);
-        newGame.setMargin(new Insets(10,10,10,10));
-        newGame.setFont(new Font(Font.SANS_SERIF,10,18));
-        newGame.setForeground(Color.WHITE);
-        newGame.setIcon(logo);
+        newGame.getText().setFont(new Font("Helvetica",1,20));
 
-        caraMain.setBackground(Color.blue);
-        caraMain.setMargin(new Insets(10,10,10,10));
-        caraMain.setFont(new Font(Font.SANS_SERIF,10,18));
-        caraMain.setForeground(Color.WHITE);
-        about.setBackground(Color.blue);
-        about.setMargin(new Insets(10,10,10,10));
-        about.setFont(new Font(Font.SANS_SERIF,10,18));
-        about.setForeground(Color.WHITE);
-        exit.setBackground(Color.blue);
-        exit.setMargin(new Insets(10,10,10,10));
-        exit.setFont(new Font(Font.SANS_SERIF,10,18));
-        exit.setForeground(Color.WHITE);
 
         //Mengatur Judul
         mainTitle.setText("TIC TAC TOE");
@@ -105,9 +81,13 @@ public class MainMenu extends JPanel implements MainLayout {
 
         //Tampilan Panel
         newGamePanel.setLayout(new BoxLayout(newGamePanel, BoxLayout.X_AXIS));
+        newGamePanel.setBackground(Constants.warna2);
         caraMainPanel.setLayout(new BoxLayout(caraMainPanel, BoxLayout.X_AXIS));
+        caraMainPanel.setBackground(Constants.warna2);
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.X_AXIS));
+        aboutPanel.setBackground(Constants.warna2);
         exitPanel.setLayout(new BoxLayout(exitPanel, BoxLayout.X_AXIS));
+        exitPanel.setBackground(Constants.warna2);
         newGamePanel.add(newGame);
         newGamePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         caraMainPanel.add(caraMain);
@@ -119,6 +99,7 @@ public class MainMenu extends JPanel implements MainLayout {
 
         //Menu Utama
         menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
+        menu.setBackground(new Color(0,0,0,0));
         menu.add(newGamePanel);
         menu.add(caraMainPanel);
         menu.add(aboutPanel);
@@ -126,7 +107,6 @@ public class MainMenu extends JPanel implements MainLayout {
 
         //Container 1
         add(mainTitle, BorderLayout.PAGE_START);
-        add(new JPanel(), BorderLayout.LINE_START);
         add(menu, BorderLayout.CENTER);
     }
 

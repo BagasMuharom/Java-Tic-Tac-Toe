@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Class ini digunakan untuk membuat JDialog ketika user ingin memulai permainan baru
@@ -21,16 +23,11 @@ public class NewGame extends JDialog implements MainLayout{
     private JPanel pvpPanel = new JPanel();
     private JPanel pvePanel = new JPanel();
 
-    private JButton pvp = new JButton("Player VS Player");
-    private JButton pve = new JButton("Player VS CPU");
+    private CustomButton pvp = new CustomButton("Player VS Player",Constants.warna3,Constants.warna4);
+    private CustomButton pve = new CustomButton("Player VS CPU",Constants.warna3,Constants.warna4);
 
+    private JPanel parentPanel = new JPanel();
     private JPanel rootPanel = new JPanel();
-
-    private String player1 = "";
-    private String player2 = "";
-
-    private boolean gameStart = false;
-    private boolean gamePVP = false;
 
     /**
      * Judul Utama
@@ -43,47 +40,26 @@ public class NewGame extends JDialog implements MainLayout{
      */
     public NewGame(){
         super(Constants.TicTacToeParentFrame,true);
+        Constants.NewGameFrame = this;
         setTitle("Permainan Baru");
         actions();
         init();
     }
 
     public void actions(){
-        pvp.addActionListener(new ActionListener() {
+        NewGame newGame = this;
+        pvp.addMouseListener(new MouseAdapter() {
+
             @Override
-            public void actionPerformed(ActionEvent e) {
-                player1 = JOptionPane.showInputDialog("Nama Player 1");
-                //Jika klik OK
-                if(getPlayer1() != null){
-                    //Jika ada isiya
-                    if(getPlayer1().length()>0){
-                        player2 = JOptionPane.showInputDialog("Nama Player 2");
-                        //Jika klik OK
-                        if(getPlayer2() != null){
-                            //Jika tidak ada isiya
-                            if(getPlayer2().length()>1){
-                                gameStart = true;
-                                setVisible(false);
-                            }
-                            else {
-                                while (getPlayer2().length() <= 0  || getPlayer2() == null){
-                                    player2 = JOptionPane.showInputDialog("Nama Player 2");
-                                }
-                            }
-                        }
-                        else{
-                            JOptionPane.showMessageDialog(null,"Tidak ada isinya");
-                        }
-                    }
-                    else {
-                        while (getPlayer1().length() <=0 || getPlayer1() == null){
-                            player1 = JOptionPane.showInputDialog("Nama Player 1");
-                        }
-                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,"Tidak ada isinya");
-                }
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Constants.Controller.InputNama(newGame,true);
+            }
+        });
+        pve.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Constants.Controller.SelectLevel();
             }
         });
     }
@@ -97,44 +73,40 @@ public class NewGame extends JDialog implements MainLayout{
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(Constants.TicTacToeParentFrame);
         setLayout(new BorderLayout());
+        setBackground(Constants.warna2);
 
         //Main Title
         mainTitle.setHorizontalAlignment(SwingConstants.CENTER);
         mainTitle.setBorder(new EmptyBorder(10,10,10,10));
+        mainTitle.setOpaque(false);
+        mainTitle.setBackground(Constants.warna2);
+
+        // Parent Panel
+        parentPanel.setLayout(new BorderLayout());
+        parentPanel.setBackground(Constants.warna2);
 
         //Panel
-        pvpPanel.setLayout(new BoxLayout(pvpPanel,BoxLayout.X_AXIS));
-        pvePanel.setLayout(new BoxLayout(pvePanel,BoxLayout.X_AXIS));
-        pvpPanel.add(pvp);
-        pvePanel.add(pve);
+        pvpPanel.setLayout(new BorderLayout());
+        pvePanel.setLayout(new BorderLayout());
+        pvpPanel.setBackground(Constants.warna2);
+        pvpPanel.setBorder(new EmptyBorder(0,0,10,0));
+        pvpPanel.add(pvp,BorderLayout.CENTER);
+        pvePanel.add(pve,BorderLayout.CENTER);
+        pvePanel.setBackground(Constants.warna2);
 
         //Root panel
         rootPanel.setBorder(new EmptyBorder(10,10,10,10));
         rootPanel.setLayout(new BoxLayout(rootPanel,BoxLayout.Y_AXIS));
+        rootPanel.setBackground(Constants.warna2);
         rootPanel.add(pvpPanel);
         rootPanel.add(pvePanel);
 
-        add(mainTitle,BorderLayout.PAGE_START);
-        add(new JPanel(),BorderLayout.LINE_START);
-        add(new JPanel(),BorderLayout.LINE_END);
-        add(rootPanel,BorderLayout.CENTER);
+        parentPanel.add(mainTitle,BorderLayout.PAGE_START);
+        parentPanel.add(rootPanel,BorderLayout.CENTER);
+
+        add(parentPanel,BorderLayout.CENTER);
 
         setVisible(true);
     }
 
-    public String getPlayer1() {
-        return player1;
-    }
-
-    public String getPlayer2() {
-        return player2;
-    }
-
-    public boolean isGameStart() {
-        return gameStart;
-    }
-
-    public boolean isGamePVP() {
-        return gamePVP;
-    }
 }

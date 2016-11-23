@@ -1,31 +1,46 @@
 package Main;
 
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class XOButton extends JButton{
 
-    private boolean x;
-
-    private ImageIcon imageX;
-
-    private ImageIcon imageO;
+    static int i = 0;
 
     public XOButton(){
+        setBackground(Constants.warna2);
+        init();
         actions();
-        setBackground(java.awt.Color.white);
     }
 
     private void actions(){
-
+        addMouseListener(new MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                setBackground(Constants.warna3);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setBackground(Constants.warna2);
+            }
+        });
     }
 
-    public boolean isX(){
-        return x;
-    }
+    private void init(){
+        setIcon(new Icon() {
+            @Override
+            public void paintIcon(Component c, Graphics g, int x, int y) {
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/kotak.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
+            }
+            @Override
+            public int getIconWidth() {
+                return 0;
+            }
 
-    public void change(){
-
+            @Override
+            public int getIconHeight() {
+                return 0;
+            }
+        });
     }
 
 }

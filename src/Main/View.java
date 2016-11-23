@@ -1,7 +1,7 @@
 package Main;
 
 import javax.swing.JPanel;
-import java.awt.CardLayout;
+import java.awt.*;
 
 public class View extends JPanel{
 

@@ -1,4 +1,7 @@
-package Main;
+package Main.Dialog;
+
+import Main.Util.Constants;
+import Main.Layout.MainLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Bagas Angga on 20/11/2016.
  */
-public class PlayAgain extends JDialog implements MainLayout{
+public class PlayAgain extends JDialog implements MainLayout {
     private JPanel YesNoPanel = new JPanel();
 
     private JPanel YesPanel = new JPanel();
@@ -60,7 +63,7 @@ public class PlayAgain extends JDialog implements MainLayout{
     public void init(){
         setSize(200,200);
         setResizable(false);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(Constants.TicTacToeParentFrame);
         setLayout(new BorderLayout());
 

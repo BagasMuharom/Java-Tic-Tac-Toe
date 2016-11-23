@@ -1,21 +1,24 @@
-package Main;
+package Main.Dialog;
+
+import Main.Util.Constants;
+import Main.Layout.MainLayout;
+import Main.UI.CustomButton;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Class ini digunakan untuk membuat JDialog ketika user ingin memulai permainan baru
  * Dibuat terpisah dengan Class JFrame agar lebih terstruktur
  */
-public class SelectLevel extends JDialog implements MainLayout{
+public class SelectLevel extends JDialog implements MainLayout {
 
     private JPanel LevelPanel = new JPanel();
 
@@ -23,9 +26,9 @@ public class SelectLevel extends JDialog implements MainLayout{
     private JPanel MediumPanel = new JPanel();
     private JPanel HardPanel = new JPanel();
 
-    private JButton Easy = new JButton("Easy");
-    private JButton Medium = new JButton("Medium");
-    private JButton Hard = new JButton("Hard");
+    private CustomButton Easy = new CustomButton("Easy", Constants.warna3,Constants.warna4);
+    private CustomButton Medium = new CustomButton("Medium",Constants.warna3,Constants.warna4);
+    private CustomButton Hard = new CustomButton("Hard",Constants.warna3,Constants.warna4);
 
     private JPanel rootPanel = new JPanel();
 
@@ -47,9 +50,9 @@ public class SelectLevel extends JDialog implements MainLayout{
 
     public void actions(){
         SelectLevel selectLevel = this;
-        Easy.addActionListener(new ActionListener() {
+        Easy.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Constants.GameLevel = 1;
                 Constants.Controller.InputNama(selectLevel,false);
             }
@@ -60,7 +63,7 @@ public class SelectLevel extends JDialog implements MainLayout{
      * Inisialisasi JDialog
      */
     public void init(){
-        setSize(200,200);
+        setSize(200,250);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(Constants.TicTacToeParentFrame);
@@ -72,8 +75,10 @@ public class SelectLevel extends JDialog implements MainLayout{
 
         EasyPanel.setLayout(new BorderLayout());
         EasyPanel.add(Easy,BorderLayout.CENTER);
+        EasyPanel.setBorder(new EmptyBorder(0,0,10,0));
         MediumPanel.setLayout(new BorderLayout());
         MediumPanel.add(Medium,BorderLayout.CENTER);
+        MediumPanel.setBorder(new EmptyBorder(0,0,10,0));
         HardPanel.setLayout(new BorderLayout());
         HardPanel.add(Hard,BorderLayout.CENTER);
 

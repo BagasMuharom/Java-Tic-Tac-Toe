@@ -1,4 +1,9 @@
-package Main;
+package Main.Bootstrap;
+
+import Main.Menu.About;
+import Main.Menu.HowToPlay;
+import Main.Menu.MainMenu;
+import Main.Menu.Playboard;
 
 import javax.swing.JPanel;
 import java.awt.*;

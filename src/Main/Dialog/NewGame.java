@@ -1,16 +1,16 @@
-package Main;
+package Main.Dialog;
+
+import Main.Util.Constants;
+import Main.Layout.MainLayout;
+import Main.UI.CustomButton;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,12 +18,12 @@ import java.awt.event.MouseEvent;
  * Class ini digunakan untuk membuat JDialog ketika user ingin memulai permainan baru
  * Dibuat terpisah dengan Class JFrame agar lebih terstruktur
  */
-public class NewGame extends JDialog implements MainLayout{
+public class NewGame extends JDialog implements MainLayout {
 
     private JPanel pvpPanel = new JPanel();
     private JPanel pvePanel = new JPanel();
 
-    private CustomButton pvp = new CustomButton("Player VS Player",Constants.warna3,Constants.warna4);
+    private CustomButton pvp = new CustomButton("Player VS Player", Constants.warna3,Constants.warna4);
     private CustomButton pve = new CustomButton("Player VS CPU",Constants.warna3,Constants.warna4);
 
     private JPanel parentPanel = new JPanel();

@@ -1,4 +1,8 @@
-package Main;
+package Main.Menu;
+
+import Main.Util.Constants;
+import Main.UI.CustomButton;
+import Main.Layout.MainLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,10 +22,10 @@ public class MainMenu extends JPanel implements MainLayout {
 
     private JLabel mainTitle = new JLabel();
 
-    private CustomButton newGame = new CustomButton("Permainan Baru",Constants.warna3,Constants.warna4);
+    private CustomButton newGame = new CustomButton("Permainan Baru", Constants.warna3,Constants.warna4);
     private CustomButton caraMain = new CustomButton("Cara Bermain",Constants.warna3,Constants.warna4);
     private CustomButton about = new CustomButton("Tentang Aplikasi",Constants.warna3,Constants.warna4);
-    private CustomButton exit = new CustomButton("Keluar",Constants.warna3,Constants.warna4);
+    private CustomButton exit = new CustomButton("Keluar",Constants.warna1,Constants.warna1Dark);
 
     private ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")));
 

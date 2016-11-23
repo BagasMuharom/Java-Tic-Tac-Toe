@@ -4,14 +4,19 @@ package Main;
  * Ini merupakan permainan TicTacToe versi Java dengan Swing sebagai GUI
  */
 
+import Main.Bootstrap.Controller;
+import Main.Bootstrap.View;
+import Main.Layout.MainLayout;
+import Main.Util.Constants;
+
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.*;
 
 public class TicTacToe extends JFrame implements MainLayout {
 
-    private View View = new View();
-    private Controller Controller = new Controller();
+    private Main.Bootstrap.View View = new View();
+    private Main.Bootstrap.Controller Controller = new Controller();
 
     public TicTacToe(){
         // Memberi Judul Window

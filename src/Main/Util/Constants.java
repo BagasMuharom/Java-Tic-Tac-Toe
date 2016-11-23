@@ -1,4 +1,7 @@
-package Main;
+package Main.Util;
+
+import Main.Dialog.NewGame;
+import Main.TicTacToe;
 
 import java.awt.*;
 
@@ -18,56 +21,57 @@ public class Constants {
     /**
      * Alamat Frame utama dari TicTacToe.java
      */
-    static TicTacToe Frame;
+    public static TicTacToe Frame;
 
     /**
      * Alamat Frame utama dari TicTacToe.java namun digunakan
      * sebagai parent Window dari sebuah JDialog
      */
-    static Frame TicTacToeParentFrame;
+    public static Frame TicTacToeParentFrame;
 
     /**
      * Alamat dari Class View
      */
-    static View View;
+    public static Main.Bootstrap.View View;
 
     /**
      * Alamat dari Class Controller
      */
-    static Controller Controller;
+    public static Main.Bootstrap.Controller Controller;
 
     /**
      *
      */
-    static NewGame NewGameFrame;
+    public static NewGame NewGameFrame;
 
     /**
      * Jenis atau Tipe Permainan
      */
-    static boolean PVP;
+    public static boolean PVP;
 
     /**
      * Apakah permainan sudah dimulai
      */
-    static boolean GameStart;
+    public static boolean GameStart;
 
     /**
      * Nama Player
      */
-    static String Player1Name;
-    static String Player2Name;
+    public static String Player1Name;
+    public static String Player2Name;
 
     /**
      * Jenis level permainan yang dipilih
      */
-    static byte GameLevel;
+    public static byte GameLevel;
 
     /**
      * Warna
      */
-    static Color warna1 = new Color(255, 86, 86);
-    static Color warna2 = new Color(237, 242, 246);
-    static Color warna3 = new Color(106, 126, 252);
-    static Color warna4 = new Color(73,73,83);
+    public static Color warna1 = new Color(255, 86, 86);
+    public static Color warna1Dark = new Color(220, 50, 50);
+    public static Color warna2 = new Color(237, 242, 246);
+    public static Color warna3 = new Color(106, 126, 252);
+    public static Color warna4 = new Color(73,73,83);
 
 }

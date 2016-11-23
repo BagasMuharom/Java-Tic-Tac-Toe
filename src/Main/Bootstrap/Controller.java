@@ -1,4 +1,8 @@
-package Main;
+package Main.Bootstrap;
+
+import Main.Util.Constants;
+import Main.Dialog.NewGame;
+import Main.Dialog.SelectLevel;
 
 import javax.swing.*;
 
@@ -22,13 +26,13 @@ public class Controller {
     }
     
     public void InputNama(JDialog parent, boolean PVP){
-        Constants.Player1Name = JOptionPane.showInputDialog("Nama Player 1");
+        Constants.Player1Name = JOptionPane.showInputDialog(Constants.TicTacToeParentFrame,"Nama Player 1");
         //Jika klik OK
         if(Constants.Player1Name != null){
             //Jika ada isiya
             if(Constants.Player1Name.length()>0){
                 if(PVP) {
-                    Constants.Player2Name = JOptionPane.showInputDialog("Nama Player 2");
+                    Constants.Player2Name = JOptionPane.showInputDialog(Constants.TicTacToeParentFrame,"Nama Player 2");
                     //Jika klik OK
                     if (Constants.Player2Name != null) {
                         //Jika tidak ada isiya
@@ -38,7 +42,7 @@ public class Controller {
                             parent.setVisible(false);
                         } else {
                             while (Constants.Player2Name.length() <= 0 || Constants.Player2Name == null) {
-                                Constants.Player2Name = JOptionPane.showInputDialog("Nama Player 2");
+                                Constants.Player2Name = JOptionPane.showInputDialog(Constants.TicTacToeParentFrame,"Nama Player 2");
                             }
                         }
                     }
@@ -53,7 +57,7 @@ public class Controller {
             }
             else {
                 while (Constants.Player1Name.length() <=0 || Constants.Player1Name == null){
-                    Constants.Player1Name = JOptionPane.showInputDialog("Nama Player 1");
+                    Constants.Player1Name = JOptionPane.showInputDialog(Constants.TicTacToeParentFrame,"Nama Player 1");
                 }
             }
         }

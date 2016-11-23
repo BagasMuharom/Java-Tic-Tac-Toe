@@ -1,4 +1,4 @@
-package Main;
+package Main.UI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,11 +18,19 @@ public class CustomButton extends JPanel{
 
     private boolean useIcon = false;
 
-    private Color bg;
+    protected Color bg;
 
-    private Color hoverBg;
+    protected Color hoverBg;
 
     private JLabel Text = new JLabel();
+
+    final static int TOP = 1;
+
+    final static int LEFT = 2;
+
+    final static int RIGHT = 3;
+
+    final static int BOTTOM = 4;
 
     public CustomButton(String Text, Color bg, Color hoverBg, String icon){
         this.Text.setText(Text);
@@ -42,7 +50,7 @@ public class CustomButton extends JPanel{
         actions();
     }
 
-    private void actions(){
+    protected void actions(){
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -58,7 +66,7 @@ public class CustomButton extends JPanel{
         });
     }
 
-    private void setStyle(){
+    protected void setStyle(){
         setUI(new PanelUI() {
             @Override
             public void paint(Graphics g, JComponent c) {
@@ -94,7 +102,7 @@ public class CustomButton extends JPanel{
         });
     }
 
-    private void init(){
+    protected void init(){
         setOpaque(false);
         setLayout(new BorderLayout(10,10));
         setBorder(new EmptyBorder(10,10,10,10));
@@ -107,6 +115,23 @@ public class CustomButton extends JPanel{
 
     public JLabel getText(){
         return this.Text;
+    }
+
+    public void setIcon(String Icon){
+        this.icon = Icon;
+    }
+
+    public void setIconPosition(){
+
+    }
+
+    public void setForeground(Color color){
+        try {
+            this.Text.setForeground(color);
+        }
+        catch (NullPointerException err){
+
+        }
     }
 
 }

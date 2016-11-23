@@ -1,4 +1,4 @@
-package Main;
+package Main.Layout;
 
 /**
  * Digunakan untuk template dari setiap frame atau panel dari aplikasi ini

@@ -1,16 +1,19 @@
-package Main;
+package Main.Menu;
+
+import Main.Dialog.PlayAgain;
+import Main.Layout.MainLayout;
+import Main.UI.CustomButton;
+import Main.UI.XOButton;
+import Main.Util.Constants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.PanelUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class Playboard extends JPanel implements MainLayout{
+public class Playboard extends JPanel implements MainLayout {
 
     private JPanel mainPanel = new JPanel();
     private JPanel mainGrid = new JPanel();
@@ -25,10 +28,10 @@ public class Playboard extends JPanel implements MainLayout{
 
     private JLabel waktu = new JLabel();
     
-    private Color bg = Constants.warna2;
+    private Color bg = Constants.warna3;
 
     private ArrayList<XOButton> xo = new ArrayList<>();
-    private CustomButton backtomenu = new CustomButton("Kembali ke menu",Constants.warna3,Constants.warna4);
+    private CustomButton backtomenu = new CustomButton("Kembali ke menu",Constants.warna2,Constants.warna4);
 
     private byte gridRow = 4;
     private byte gridCol = 3;
@@ -41,10 +44,10 @@ public class Playboard extends JPanel implements MainLayout{
 
     public void actions(){
         for(byte i=0;i<9;i++){
-            xo.get(i).addActionListener(new ActionListener() {
+            xo.get(i).addMouseListener(new MouseAdapter() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null,"Selamat, anda menang !");
+                public void mouseClicked(MouseEvent e) {
+                    JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,"Selamat, anda menang !");
                     PlayAgain playAgain = new PlayAgain();
                 }
             });
@@ -54,13 +57,24 @@ public class Playboard extends JPanel implements MainLayout{
             public void mouseClicked(MouseEvent e) {
                 Constants.Controller.destroyGame();
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                backtomenu.setForeground(Constants.warna2);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                backtomenu.setForeground(Constants.warna3);
+            }
         });
     }
 
     public void init(){
         //Main Panel
         setLayout(new BorderLayout());
-        setBackground(Constants.warna2);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(new EmptyBorder(gap,gap,gap,gap));
@@ -78,10 +92,28 @@ public class Playboard extends JPanel implements MainLayout{
         atas.add(backtomenu,BorderLayout.LINE_END);
         mainPanel.add(atas,BorderLayout.NORTH);
 
+        backtomenu.setForeground(Constants.warna3);
+
         player1.setText(Constants.Player1Name);
         player2.setText(Constants.Player2Name);
 
         player1.setFont(new Font("Helvetica",Font.PLAIN,20));
+        player1.setIcon(new Icon() {
+            @Override
+            public void paintIcon(Component c, Graphics g, int x, int y) {
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
+            }
+
+            @Override
+            public int getIconWidth() {
+                return 0;
+            }
+
+            @Override
+            public int getIconHeight() {
+                return 0;
+            }
+        });
         player2.setFont(new Font("Helvetica",Font.PLAIN,20));
 
         getGiliran().setText(getGiliran().getText());

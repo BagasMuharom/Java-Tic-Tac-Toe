@@ -16,7 +16,7 @@ public class XOButton extends CustomButton {
             @Override
             public void paint(Graphics g, JComponent c) {
                 super.paint(g, c);
-                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
             }
         });
         */

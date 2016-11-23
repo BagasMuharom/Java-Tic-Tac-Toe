@@ -27,7 +27,7 @@ public class MainMenu extends JPanel implements MainLayout {
     private CustomButton about = new CustomButton("Tentang Aplikasi",Constants.warna3,Constants.warna4);
     private CustomButton exit = new CustomButton("Keluar",Constants.warna1,Constants.warna1Dark);
 
-    private ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")));
+    private ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")));
 
     public MainMenu(){
         actions();

@@ -29,7 +29,7 @@ public class TicTacToe extends JFrame implements MainLayout {
         Constants.TicTacToeParentFrame = this;
 
         //Mengatur Icon pada Window
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")));
 
         //Inisialisasi Komponen
         init();

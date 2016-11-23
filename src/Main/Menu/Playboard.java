@@ -101,7 +101,7 @@ public class Playboard extends JPanel implements MainLayout {
         player1.setIcon(new Icon() {
             @Override
             public void paintIcon(Component c, Graphics g, int x, int y) {
-                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../res/icon.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
             }
 
             @Override

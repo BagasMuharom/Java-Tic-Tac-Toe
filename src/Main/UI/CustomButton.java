@@ -1,5 +1,8 @@
 package Main.UI;
 
+import Main.Dialog.PlayAgain;
+import Main.Util.Constants;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -7,16 +10,9 @@ import javax.swing.plaf.PanelUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class CustomButton extends JPanel{
-
-    private JPanel container = new JPanel();
-
-    private JPanel iconPanel = new JPanel();
-
-    private String icon;
-
-    private boolean useIcon = false;
 
     protected Color bg;
 
@@ -24,28 +20,15 @@ public class CustomButton extends JPanel{
 
     private JLabel Text = new JLabel();
 
-    final static int TOP = 1;
+    int type;
 
-    final static int LEFT = 2;
+    public static final int PRIMARY = 1;
 
-    final static int RIGHT = 3;
+    public static final int DANGER = 2;
 
-    final static int BOTTOM = 4;
-
-    public CustomButton(String Text, Color bg, Color hoverBg, String icon){
+    public CustomButton(String Text,int type){
         this.Text.setText(Text);
-        this.bg = bg;
-        this.hoverBg = hoverBg;
-        this.icon = icon;
-        this.useIcon = true;
-        init();
-        actions();
-    }
-
-    public CustomButton(String Text,Color bg, Color hoverBg){
-        this.Text.setText(Text);
-        this.bg = bg;
-        this.hoverBg = hoverBg;
+        this.type = type;
         init();
         actions();
     }
@@ -62,6 +45,12 @@ public class CustomButton extends JPanel{
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 setBackground(bg);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                setBackground(new Color(getBackground().getRed()-20,getBackground().getGreen()-20,getBackground().getBlue()-20));
             }
         });
     }
@@ -103,6 +92,14 @@ public class CustomButton extends JPanel{
     }
 
     protected void init(){
+        if(type==1){
+            this.bg = Constants.buttonBgPrimary;
+            this.hoverBg = Constants.buttonBgPrimaryHover;
+        }
+        else if(type==2){
+            this.bg = Constants.buttonBgDanger;
+            this.hoverBg = Constants.buttonBgDangerHover;
+        }
         setOpaque(false);
         setLayout(new BorderLayout(10,10));
         setBorder(new EmptyBorder(10,10,10,10));
@@ -115,14 +112,6 @@ public class CustomButton extends JPanel{
 
     public JLabel getText(){
         return this.Text;
-    }
-
-    public void setIcon(String Icon){
-        this.icon = Icon;
-    }
-
-    public void setIconPosition(){
-
     }
 
     public void setForeground(Color color){

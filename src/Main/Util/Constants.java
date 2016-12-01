@@ -2,8 +2,9 @@ package Main.Util;
 
 import Main.Dialog.NewGame;
 import Main.TicTacToe;
-
 import java.awt.*;
+import javax.swing.Timer;
+
 
 /**
  * Class ini berfungsi untuk menyimpan alamat dari sebuah Objek
@@ -16,7 +17,7 @@ import java.awt.*;
  * Kenapa Static ?
  * Agar kita tidak perlu menggunakan notasi "new"
  */
-public class Constants {
+final public class Constants {
 
     /**
      * Alamat Frame utama dari TicTacToe.java
@@ -47,12 +48,55 @@ public class Constants {
     /**
      * Jenis atau Tipe Permainan
      */
-    public static boolean PVP;
+    public static boolean PVPGame;
+
+    /**
+     * Class PVP dan PVE
+     */
+    public final static PVP PVP = new PVP();
+    public final static PVE PVE = new PVE();
 
     /**
      * Apakah permainan sudah dimulai
      */
     public static boolean GameStart;
+
+    /**
+     * Untuk menyimpan array dari playboard
+     */
+    public static byte arrayBoard[][] = new byte[3][3];
+
+    /**
+     * Last tile clicked
+     */
+    public static byte lastTileCol;
+    public static byte lastTileRow;
+
+    /**
+     * Untuk mengatur apakah saat ini giliran player 1
+     */
+
+    /**
+     * Countdown
+     */
+    public static Timer timer;
+
+    public static boolean turnPlayer1;
+
+    /**
+     * Game Selesai
+     */
+    public static boolean GameEnd = false;
+
+    /**
+     * AI
+     */
+    public static PVE AI;
+
+    /**
+     * Game Time
+     */
+    public static int PVETime;
 
     /**
      * Nama Player
@@ -66,12 +110,36 @@ public class Constants {
     public static byte GameLevel;
 
     /**
+     * Icon
+     */
+    public static String iconPlayer1 = "../../Resources/square.png";
+    public static String iconPlayer2 = "../../Resources/circle.png";
+
+    /**
      * Warna
      */
-    public static Color warna1 = new Color(255, 86, 86);
-    public static Color warna1Dark = new Color(220, 50, 50);
-    public static Color warna2 = new Color(237, 242, 246);
-    public static Color warna3 = new Color(106, 126, 252);
-    public static Color warna4 = new Color(73,73,83);
+    public final static Color warna1 = new Color(255, 86, 86);
+    public final static Color warna2 = new Color(237, 242, 246);
+    public final static Color warna3 = new Color(106, 126, 252);
+    public final static Color warna4 = new Color(73,73,83);
+
+    /**
+     * Custom Button UI
+     */
+    public static final Color buttonBgPrimary = warna3;
+    public static final Color buttonBgPrimaryHover = new Color(warna3.getRed()-20,warna3.getGreen()-20,warna3.getBlue()-20);
+    public static final Color buttonBgDanger = warna1;
+    public static final Color buttonBgDangerHover = new Color(warna1.getRed()-20,warna1.getGreen()-20,warna1.getBlue()-20);
+
+    /**
+     * Background
+     */
+    public static final Color windowBg = warna4;
+
+
+    /**
+     * Jika ada pemain yang menang
+     */
+    public static String winner;
 
 }

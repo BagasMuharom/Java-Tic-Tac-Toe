@@ -3,7 +3,6 @@ package Main.Menu;
 import Main.Util.Constants;
 import Main.UI.CustomButton;
 import Main.Layout.MainLayout;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -12,7 +11,7 @@ import java.awt.event.*;
 /**
  * Class untuk menampilkan menu utama pada aplikasi
  */
-public class MainMenu extends JPanel implements MainLayout {
+final public class MainMenu extends JPanel implements MainLayout {
 
     private JPanel menu = new JPanel();
     private JPanel newGamePanel = new JPanel();
@@ -22,12 +21,14 @@ public class MainMenu extends JPanel implements MainLayout {
 
     private JLabel mainTitle = new JLabel();
 
-    private CustomButton newGame = new CustomButton("Permainan Baru", Constants.warna3,Constants.warna4);
-    private CustomButton caraMain = new CustomButton("Cara Bermain",Constants.warna3,Constants.warna4);
-    private CustomButton about = new CustomButton("Tentang Aplikasi",Constants.warna3,Constants.warna4);
-    private CustomButton exit = new CustomButton("Keluar",Constants.warna1,Constants.warna1Dark);
+    private Color bg = Constants.windowBg;
 
-    private ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")));
+    private CustomButton newGame = new CustomButton("Permainan Baru",CustomButton.PRIMARY);
+    private CustomButton caraMain = new CustomButton("Cara Bermain",CustomButton.PRIMARY);
+    private CustomButton about = new CustomButton("Tentang Aplikasi",CustomButton.PRIMARY);
+    private CustomButton exit = new CustomButton("Keluar",CustomButton.DANGER);
+
+    private ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../Resources/icon.png")));
 
     public MainMenu(){
         actions();
@@ -72,26 +73,29 @@ public class MainMenu extends JPanel implements MainLayout {
     public void init(){
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20, 20, 20, 20));
-        setBackground(Constants.warna2);
+        setBackground(bg);
 
         newGame.getText().setFont(new Font("Helvetica",1,20));
-
+        caraMain.getText().setFont(new Font("Helvetica",1,20));
+        about.getText().setFont(new Font("Helvetica",1,20));
+        exit.getText().setFont(new Font("Helvetica",1,20));
 
         //Mengatur Judul
         mainTitle.setText("TIC TAC TOE");
+        mainTitle.setForeground(Color.WHITE);
         mainTitle.setBorder(new EmptyBorder(10, 10, 10, 10));
-        mainTitle.setFont(new Font("Source Sans Pro", 20, 20));
+        mainTitle.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
         mainTitle.setHorizontalAlignment(SwingConstants.CENTER);
 
         //Tampilan Panel
         newGamePanel.setLayout(new BoxLayout(newGamePanel, BoxLayout.X_AXIS));
-        newGamePanel.setBackground(Constants.warna2);
+        newGamePanel.setBackground(bg);
         caraMainPanel.setLayout(new BoxLayout(caraMainPanel, BoxLayout.X_AXIS));
-        caraMainPanel.setBackground(Constants.warna2);
+        caraMainPanel.setBackground(bg);
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.X_AXIS));
-        aboutPanel.setBackground(Constants.warna2);
+        aboutPanel.setBackground(bg);
         exitPanel.setLayout(new BoxLayout(exitPanel, BoxLayout.X_AXIS));
-        exitPanel.setBackground(Constants.warna2);
+        exitPanel.setBackground(bg);
         newGamePanel.add(newGame);
         newGamePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         caraMainPanel.add(caraMain);

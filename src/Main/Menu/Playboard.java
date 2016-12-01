@@ -9,11 +9,13 @@ import Main.Util.Constants;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class Playboard extends JPanel implements MainLayout {
+final public class Playboard extends JPanel implements MainLayout {
 
     private JPanel mainPanel = new JPanel();
     private JPanel mainGrid = new JPanel();
@@ -25,13 +27,20 @@ public class Playboard extends JPanel implements MainLayout {
     private JLabel player1 = new JLabel();
     private JLabel player2 = new JLabel();
     private JLabel giliran = new JLabel();
+    private JLabel turnPlayerName = new JLabel();
+
+    private ImageIcon player1Icon = new ImageIcon();
+    private ImageIcon player2Icon = new ImageIcon();
+
+    private JLabel player1IconPanel = new JLabel("",player1Icon,JLabel.LEFT);
+    private JLabel player2IconPanel = new JLabel("",player2Icon,JLabel.LEFT);
 
     private JLabel waktu = new JLabel();
     
-    private Color bg = Constants.warna3;
+    private Color bg = Constants.warna4;
 
     private ArrayList<XOButton> xo = new ArrayList<>();
-    private CustomButton backtomenu = new CustomButton("Kembali ke menu",Constants.warna2,Constants.warna4);
+    private CustomButton backtomenu = new CustomButton("Kembali ke menu",CustomButton.DANGER);
 
     private byte gridRow = 4;
     private byte gridCol = 3;
@@ -43,33 +52,26 @@ public class Playboard extends JPanel implements MainLayout {
     }
 
     public void actions(){
-        for(byte i=0;i<9;i++){
-            xo.get(i).addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,"Selamat, anda menang !");
-                    PlayAgain playAgain = new PlayAgain();
-                }
-            });
-        }
         backtomenu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Constants.timer.stop();
+                Constants.Controller.clearPlayboard();
                 Constants.Controller.destroyGame();
             }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                backtomenu.setForeground(Constants.warna2);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                backtomenu.setForeground(Constants.warna3);
-            }
         });
+
+        for(byte j=0;j<9;j++){
+            byte i = j;
+            xo.get(j).addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    Constants.Controller.tileClicked(i);
+                }
+            });
+        }
+
     }
 
     public void init(){
@@ -84,53 +86,52 @@ public class Playboard extends JPanel implements MainLayout {
 
         atas.setLayout(new BorderLayout());
         atas.setBackground(bg);
-
-        waktu.setText("Waktu");
-        waktu.setHorizontalAlignment(SwingConstants.CENTER);
-
-        atas.add(waktu,BorderLayout.CENTER);
         atas.add(backtomenu,BorderLayout.LINE_END);
         mainPanel.add(atas,BorderLayout.NORTH);
 
-        backtomenu.setForeground(Constants.warna3);
+        backtomenu.setForeground(Constants.warna2);
 
         player1.setText(Constants.Player1Name);
         player2.setText(Constants.Player2Name);
+        giliran.setText("Giliran");
+        giliran.setFont(new Font("Helvetica",Font.PLAIN,20));
+        giliran.setForeground(Color.WHITE);
 
         player1.setFont(new Font("Helvetica",Font.PLAIN,20));
-        player1.setIcon(new Icon() {
-            @Override
-            public void paintIcon(Component c, Graphics g, int x, int y) {
-                g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")), (getWidth()-getHeight()+20)/2 , 10 , (getHeight()-20), (getHeight()-20),null);
-            }
-
-            @Override
-            public int getIconWidth() {
-                return 0;
-            }
-
-            @Override
-            public int getIconHeight() {
-                return 0;
-            }
-        });
         player2.setFont(new Font("Helvetica",Font.PLAIN,20));
+        player1.setForeground(Color.WHITE);
+        player2.setForeground(Color.WHITE);
 
         getGiliran().setText(getGiliran().getText());
         getPlayer1().setHorizontalAlignment(SwingConstants.CENTER);
         getPlayer2().setHorizontalAlignment(SwingConstants.CENTER);
         getGiliran().setHorizontalAlignment(SwingConstants.CENTER);
 
-        player1Panel.setLayout(new BoxLayout(player1Panel,BoxLayout.X_AXIS));
+        player1Panel.setLayout(new BoxLayout(player1Panel,BoxLayout.Y_AXIS));
         player1Panel.setBackground(bg);
-        player2Panel.setLayout(new BoxLayout(player2Panel,BoxLayout.X_AXIS));
+        player1Panel.setBorder(new EmptyBorder(10,10,10,10));
+        player2Panel.setLayout(new BoxLayout(player2Panel,BoxLayout.Y_AXIS));
         player2Panel.setBackground(bg);
-        giliranPanel.setLayout(new BoxLayout(giliranPanel,BoxLayout.X_AXIS));
+        player2Panel.setBorder(new EmptyBorder(10,10,10,10));
+        giliranPanel.setLayout(new BoxLayout(giliranPanel,BoxLayout.Y_AXIS));
         giliranPanel.setBackground(bg);
+        giliranPanel.setBorder(new EmptyBorder(10,10,10,10));
 
+        turnPlayerName.setForeground(Color.WHITE);
+        turnPlayerName.setFont(new Font("Helvetica", Font.PLAIN,16));
+
+        player1Icon.setImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../Resources/squaresmall.png")));
+        player2Icon.setImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../Resources/circlesmall.png")));
+        player1IconPanel.setIcon(player1Icon);
+        player2IconPanel.setIcon(player2Icon);
+        player1IconPanel.setBorder(new EmptyBorder(10,0,0,0));
+        player2IconPanel.setBorder(new EmptyBorder(10,0,0,0));
         player1Panel.add(player1);
+        player1Panel.add(player1IconPanel);
         player2Panel.add(player2);
+        player2Panel.add(player2IconPanel);
         giliranPanel.add(giliran);
+        giliranPanel.add(turnPlayerName);
 
         mainGrid.add(player1Panel);
         mainGrid.add(player2Panel);
@@ -138,7 +139,7 @@ public class Playboard extends JPanel implements MainLayout {
 
         // Inisialisasi XO Button
         // Gunakan byte agar hemat memori
-        for(int i=0;i<9;i++){
+        for(byte i=0;i<9;i++){
             xo.add(new XOButton());
             mainGrid.add(xo.get(i));
         }
@@ -159,8 +160,72 @@ public class Playboard extends JPanel implements MainLayout {
         return giliran;
     }
 
-    public void setGiliran(JLabel giliran) {
-        this.giliran = giliran;
+    public JLabel getTurnPlayerName() {
+        return turnPlayerName;
+    }
+
+    public void renderPlayboard(){
+        int adder = 0;
+        if(Constants.turnPlayer1)
+            turnPlayerName.setText(Constants.Player1Name);
+        else
+            turnPlayerName.setText(Constants.Player2Name);
+        for(byte i=0;i<3;i++){
+            for(byte j=0;j<3;j++){
+                if(Constants.arrayBoard[i][j]==1){
+                    xo.get(i+j+adder).setIcon(Constants.iconPlayer1);
+                }
+                else if(Constants.arrayBoard[i][j]==2){
+                    xo.get(i+j+adder).setIcon(Constants.iconPlayer2);
+                }
+                else{
+                    xo.get(i+j+adder).setIcon("");
+                }
+            }
+            adder+=2;
+        }
+    }
+
+    public void setPVEGame(){
+        setCountdown();
+        waktu.setForeground(Color.WHITE);
+        waktu.setFont(new Font("Helvetica",Font.PLAIN,16));
+        waktu.setHorizontalAlignment(SwingConstants.CENTER);
+        atas.add(waktu,BorderLayout.CENTER);
+    }
+
+    public void setCountdown(){
+        Constants.PVETime = 15;
+        int level = Constants.GameLevel;
+        switch(level){
+            case 1:
+                Constants.PVETime = 15;
+                break;
+            case 2:
+                Constants.PVETime = 10;
+                break;
+            case 3:
+                Constants.PVETime = 8;
+                break;
+        }
+        waktu.setText("Waktu : " + Constants.PVETime);
+        Constants.timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                waktu.setText("Waktu : " + Constants.PVETime);
+                if(Constants.PVETime>0){
+                    Constants.PVETime--;
+                }
+                else{
+                    Constants.timer.stop();
+                    if(!Constants.GameEnd) {
+                        JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame, "Waktu habis, anda kalah !");
+                        PlayAgain playAgain = new PlayAgain();
+                    }
+                }
+            }
+        });
+        Constants.timer.start();
     }
 
 }

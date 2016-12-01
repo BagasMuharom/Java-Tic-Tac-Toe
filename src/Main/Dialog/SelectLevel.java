@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,7 +18,7 @@ import java.awt.event.MouseEvent;
  * Class ini digunakan untuk membuat JDialog ketika user ingin memulai permainan baru
  * Dibuat terpisah dengan Class JFrame agar lebih terstruktur
  */
-public class SelectLevel extends JDialog implements MainLayout {
+final public class SelectLevel extends JDialog implements MainLayout {
 
     private JPanel LevelPanel = new JPanel();
 
@@ -26,9 +26,9 @@ public class SelectLevel extends JDialog implements MainLayout {
     private JPanel MediumPanel = new JPanel();
     private JPanel HardPanel = new JPanel();
 
-    private CustomButton Easy = new CustomButton("Easy", Constants.warna3,Constants.warna4);
-    private CustomButton Medium = new CustomButton("Medium",Constants.warna3,Constants.warna4);
-    private CustomButton Hard = new CustomButton("Hard",Constants.warna3,Constants.warna4);
+    private CustomButton Easy = new CustomButton("Easy",CustomButton.PRIMARY);
+    private CustomButton Medium = new CustomButton("Medium",CustomButton.PRIMARY);
+    private CustomButton Hard = new CustomButton("Hard",CustomButton.PRIMARY);
 
     private JPanel rootPanel = new JPanel();
 
@@ -57,6 +57,20 @@ public class SelectLevel extends JDialog implements MainLayout {
                 Constants.Controller.InputNama(selectLevel,false);
             }
         });
+        Medium.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Constants.GameLevel = 2;
+                Constants.Controller.InputNama(selectLevel,false);
+            }
+        });
+        Hard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Constants.GameLevel = 3;
+                Constants.Controller.InputNama(selectLevel,false);
+            }
+        });
     }
 
     /**
@@ -65,25 +79,34 @@ public class SelectLevel extends JDialog implements MainLayout {
     public void init(){
         setSize(200,250);
         setResizable(false);
+        setBackground(Constants.windowBg);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(Constants.TicTacToeParentFrame);
         setLayout(new BorderLayout());
 
         //Main Title
+        mainTitle.setBackground(Constants.windowBg);
+        mainTitle.setOpaque(true);
         mainTitle.setHorizontalAlignment(SwingConstants.CENTER);
         mainTitle.setBorder(new EmptyBorder(10,10,10,10));
+        mainTitle.setForeground(Color.WHITE);
+        mainTitle.setFont(new Font("Helvetica",Font.BOLD,20));
 
         EasyPanel.setLayout(new BorderLayout());
         EasyPanel.add(Easy,BorderLayout.CENTER);
         EasyPanel.setBorder(new EmptyBorder(0,0,10,0));
+        EasyPanel.setBackground(Constants.windowBg);
         MediumPanel.setLayout(new BorderLayout());
         MediumPanel.add(Medium,BorderLayout.CENTER);
         MediumPanel.setBorder(new EmptyBorder(0,0,10,0));
+        MediumPanel.setBackground(Constants.windowBg);
         HardPanel.setLayout(new BorderLayout());
         HardPanel.add(Hard,BorderLayout.CENTER);
+        HardPanel.setBackground(Constants.windowBg);
 
         //Panel
         LevelPanel.setLayout(new BoxLayout(LevelPanel,BoxLayout.Y_AXIS));
+        LevelPanel.setBackground(Constants.windowBg);
         LevelPanel.add(EasyPanel);
         LevelPanel.add(MediumPanel);
         LevelPanel.add(HardPanel);
@@ -91,11 +114,10 @@ public class SelectLevel extends JDialog implements MainLayout {
         //Root panel
         rootPanel.setBorder(new EmptyBorder(10,10,10,10));
         rootPanel.setLayout(new BoxLayout(rootPanel,BoxLayout.Y_AXIS));
+        rootPanel.setBackground(Constants.windowBg);
         rootPanel.add(LevelPanel);
 
         add(mainTitle, BorderLayout.PAGE_START);
-        add(new JPanel(),BorderLayout.LINE_START);
-        add(new JPanel(),BorderLayout.LINE_END);
         add(rootPanel,BorderLayout.CENTER);
 
         setVisible(true);

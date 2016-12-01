@@ -6,17 +6,19 @@ import Main.Layout.MainLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.TextUI;
+import javax.swing.text.EditorKit;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class About extends JPanel implements MainLayout {
+final public class About extends JPanel implements MainLayout {
 
     private JLabel Judul = new JLabel("Tentang");
 
     private JTextPane isi = new JTextPane();
 
-    private CustomButton Kembali = new CustomButton("Kembali", Constants.warna3,Constants.warna4);
+    private CustomButton Kembali = new CustomButton("Kembali",CustomButton.PRIMARY);
 
     public About(){
         init();
@@ -36,21 +38,25 @@ public class About extends JPanel implements MainLayout {
     public void init(){
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20,20,20,20));
-        setBackground(Constants.warna2);
+        setBackground(Constants.windowBg);
 
         Judul.setHorizontalAlignment(SwingConstants.CENTER);
         Judul.setFont(new Font("Helvetica",20,20));
         Judul.setBorder(new EmptyBorder(0,0,10,0));
+        Judul.setForeground(Constants.warna2);
 
         JPanel isiPanel = new JPanel();
         isiPanel.setLayout(new BoxLayout(isiPanel,BoxLayout.X_AXIS));
         isiPanel.setBorder(new EmptyBorder(0,0,10,0));
-        isiPanel.setBackground(new Color(0,0,0,0));
+        isiPanel.setBackground(Constants.windowBg);
 
         isi.setText("Permainan ini dibuat oleh Bagas Muharom Hanugrah Hidayat. Permainan ini dibuat sebagai tugas akhir mata kuliah Pemrograman Berbasis Objek tahun 2016.");
-        isi.setEditable(false);
-        isi.setOpaque(true);
+        isi.setOpaque(false);
+        isi.setForeground(Constants.warna2);
+        isi.setFont(new Font("Helvetica",Font.PLAIN,15));
         isi.setBorder(new EmptyBorder(10,10,10,10));
+        isi.setFocusable(false);
+        isi.setBackground(new Color(0,0,0,0));
 
         Kembali.setBorder(new EmptyBorder(10,10,10,10));
 

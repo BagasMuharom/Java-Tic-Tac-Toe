@@ -10,13 +10,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class HowToPlay extends JPanel implements MainLayout {
+final public class HowToPlay extends JPanel implements MainLayout {
 
     private JLabel Judul = new JLabel("Tentang");
 
     private JTextPane isi = new JTextPane();
 
-    private CustomButton Kembali = new CustomButton("Kembali", Constants.warna3,Constants.warna4);
+    private CustomButton Kembali = new CustomButton("Kembali",CustomButton.PRIMARY);
 
     public HowToPlay(){
         init();
@@ -36,11 +36,14 @@ public class HowToPlay extends JPanel implements MainLayout {
     public void init(){
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20,20,20,20));
-        setBackground(Constants.warna2);
+        setBackground(Constants.windowBg);
 
         Judul.setHorizontalAlignment(SwingConstants.CENTER);
         Judul.setFont(new Font("Helvetica",20,20));
         Judul.setBorder(new EmptyBorder(0,0,10,0));
+        Judul.setForeground(Color.WHITE);
+        Judul.setOpaque(true);
+        Judul.setBackground(Constants.windowBg);
 
         JPanel isiPanel = new JPanel();
         isiPanel.setLayout(new BoxLayout(isiPanel,BoxLayout.X_AXIS));
@@ -48,10 +51,12 @@ public class HowToPlay extends JPanel implements MainLayout {
         isiPanel.setBackground(new Color(0,0,0,0));
 
         isi.setText("Panel untuk menampilkan cara bermain Tic Tac Toe");
-        isi.setEditable(false);
-        isi.setBackground(Constants.warna3);
-        isi.setOpaque(true);
+        isi.setOpaque(false);
+        isi.setForeground(Constants.warna2);
+        isi.setFont(new Font("Helvetica",Font.PLAIN,15));
         isi.setBorder(new EmptyBorder(10,10,10,10));
+        isi.setFocusable(false);
+        isi.setBackground(new Color(0,0,0,0));
 
         isiPanel.add(isi);
         add(Judul, BorderLayout.PAGE_START);

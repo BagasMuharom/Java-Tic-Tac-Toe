@@ -8,7 +8,7 @@ import Main.Menu.Playboard;
 import javax.swing.JPanel;
 import java.awt.*;
 
-public class View extends JPanel{
+final public class View extends JPanel{
 
     private static CardLayout cardLayout = new CardLayout();
 

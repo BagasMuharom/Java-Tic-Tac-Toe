@@ -4,11 +4,7 @@ import Main.Util.Constants;
 import Main.Layout.MainLayout;
 import Main.UI.CustomButton;
 
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -26,9 +22,15 @@ final public class SelectLevel extends JDialog implements MainLayout {
     private JPanel MediumPanel = new JPanel();
     private JPanel HardPanel = new JPanel();
 
-    private CustomButton Easy = new CustomButton("Easy",CustomButton.PRIMARY);
-    private CustomButton Medium = new CustomButton("Medium",CustomButton.PRIMARY);
-    private CustomButton Hard = new CustomButton("Hard",CustomButton.PRIMARY);
+    private CustomButton Easy = new CustomButton("Mudah",CustomButton.PRIMARY);
+    private CustomButton Medium = new CustomButton("Sedang",CustomButton.PRIMARY);
+    private CustomButton Hard = new CustomButton("Sulit",CustomButton.PRIMARY);
+
+    private ImageIcon sw = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../Resources/stopwatchsmall.png")));
+
+    private JLabel easyTime = new JLabel("15 detik",sw,JLabel.LEFT);
+    private JLabel mediumTime = new JLabel("10 detik",sw,JLabel.LEFT);
+    private JLabel hardTime = new JLabel("  8 detik",sw,JLabel.LEFT);
 
     private JPanel rootPanel = new JPanel();
 
@@ -77,7 +79,7 @@ final public class SelectLevel extends JDialog implements MainLayout {
      * Inisialisasi JDialog
      */
     public void init(){
-        setSize(200,250);
+        setSize(200,300);
         setResizable(false);
         setBackground(Constants.windowBg);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -92,17 +94,24 @@ final public class SelectLevel extends JDialog implements MainLayout {
         mainTitle.setForeground(Color.WHITE);
         mainTitle.setFont(new Font("Helvetica",Font.BOLD,20));
 
+        easyTime.setForeground(Color.WHITE);
+        mediumTime.setForeground(Color.WHITE);
+        hardTime.setForeground(Color.WHITE);
+
         EasyPanel.setLayout(new BorderLayout());
         EasyPanel.add(Easy,BorderLayout.CENTER);
+        Easy.add(easyTime,BorderLayout.LINE_END);
         EasyPanel.setBorder(new EmptyBorder(0,0,10,0));
         EasyPanel.setBackground(Constants.windowBg);
         MediumPanel.setLayout(new BorderLayout());
         MediumPanel.add(Medium,BorderLayout.CENTER);
+        Medium.add(mediumTime,BorderLayout.LINE_END);
         MediumPanel.setBorder(new EmptyBorder(0,0,10,0));
         MediumPanel.setBackground(Constants.windowBg);
         HardPanel.setLayout(new BorderLayout());
         HardPanel.add(Hard,BorderLayout.CENTER);
         HardPanel.setBackground(Constants.windowBg);
+        Hard.add(hardTime,BorderLayout.LINE_END);
 
         //Panel
         LevelPanel.setLayout(new BoxLayout(LevelPanel,BoxLayout.Y_AXIS));

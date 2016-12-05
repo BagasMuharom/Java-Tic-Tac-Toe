@@ -1,18 +1,13 @@
 package Main.UI;
 
-import Main.Util.Constants;
-import Main.Util.PVP;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.PanelUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.ImageObserver;
-import java.util.Objects;
 
-public class XOButton extends JPanel{
+public class Tiles extends JPanel{
 
     protected Color bg;
 
@@ -22,7 +17,9 @@ public class XOButton extends JPanel{
 
     private JLabel Text = new JLabel();
 
-    public XOButton(){
+    private ImageIcon icon = new ImageIcon();
+
+    public Tiles(){
         this.bg = new Color(0,0,0,75);
         this.hoverBg = new Color(0,0,0,120);
         init();
@@ -30,7 +27,7 @@ public class XOButton extends JPanel{
     }
 
     protected void actions(){
-        XOButton element = this;
+        Tiles element = this;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -51,8 +48,10 @@ public class XOButton extends JPanel{
         });
     }
 
-    public void setIcon(String icon){
-        this.iconSrc = icon;
+    public void setIcon(String iconstr){
+        this.iconSrc = iconstr;
+        icon.setImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(iconSrc)));
+        Text.setIcon(icon);
         setStyle();
     }
 

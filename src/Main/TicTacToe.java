@@ -79,6 +79,7 @@ final public class TicTacToe extends JFrame implements MainLayout {
         setResizable(true);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+        setResizable(false);
 
         //Frame
         add(View, BorderLayout.CENTER);

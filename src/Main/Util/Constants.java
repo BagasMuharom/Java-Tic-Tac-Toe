@@ -112,8 +112,8 @@ final public class Constants {
     /**
      * Icon
      */
-    public static String iconPlayer1 = "../../Resources/square.png";
-    public static String iconPlayer2 = "../../Resources/circle.png";
+    public static String iconPlayer1 = "../../Resources/squaremd.png";
+    public static String iconPlayer2 = "../../Resources/circlemd.png";
 
     /**
      * Warna

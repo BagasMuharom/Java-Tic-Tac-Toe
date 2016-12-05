@@ -3,7 +3,7 @@ package Main.Menu;
 import Main.Dialog.PlayAgain;
 import Main.Layout.MainLayout;
 import Main.UI.CustomButton;
-import Main.UI.XOButton;
+import Main.UI.Tiles;
 import Main.Util.Constants;
 
 import javax.swing.*;
@@ -39,7 +39,7 @@ final public class Playboard extends JPanel implements MainLayout {
     
     private Color bg = Constants.warna4;
 
-    private ArrayList<XOButton> xo = new ArrayList<>();
+    private ArrayList<Tiles> xo = new ArrayList<>();
     private CustomButton backtomenu = new CustomButton("Kembali ke menu",CustomButton.DANGER);
 
     private byte gridRow = 4;
@@ -55,7 +55,8 @@ final public class Playboard extends JPanel implements MainLayout {
         backtomenu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Constants.timer.stop();
+                if(!Constants.PVPGame)
+                    Constants.timer.stop();
                 Constants.Controller.clearPlayboard();
                 Constants.Controller.destroyGame();
             }
@@ -140,7 +141,7 @@ final public class Playboard extends JPanel implements MainLayout {
         // Inisialisasi XO Button
         // Gunakan byte agar hemat memori
         for(byte i=0;i<9;i++){
-            xo.add(new XOButton());
+            xo.add(new Tiles());
             mainGrid.add(xo.get(i));
         }
 
@@ -186,9 +187,17 @@ final public class Playboard extends JPanel implements MainLayout {
         }
     }
 
+    public void hapusWaktu(){
+        waktu.setVisible(false);
+    }
+
     public void setPVEGame(){
         setCountdown();
+        waktu.setVisible(true);
         waktu.setForeground(Color.WHITE);
+        ImageIcon sw = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../Resources/stopwatchsmall.png")));
+        waktu.setIcon(sw);
+        waktu.setIconTextGap(JLabel.LEFT);
         waktu.setFont(new Font("Helvetica",Font.PLAIN,16));
         waktu.setHorizontalAlignment(SwingConstants.CENTER);
         atas.add(waktu,BorderLayout.CENTER);
@@ -208,11 +217,14 @@ final public class Playboard extends JPanel implements MainLayout {
                 Constants.PVETime = 8;
                 break;
         }
-        waktu.setText("Waktu : " + Constants.PVETime);
+        waktu.setText("     Waktu : " + Constants.PVETime + " detik");
         Constants.timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                waktu.setText("Waktu : " + Constants.PVETime);
+                if(Constants.PVETime>9)
+                    waktu.setText("     Waktu : " + Constants.PVETime + " detik");
+                else
+                    waktu.setText("     Waktu : 0" + Constants.PVETime + " detik");
                 if(Constants.PVETime>0){
                     Constants.PVETime--;
                 }

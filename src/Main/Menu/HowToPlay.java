@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 
 final public class HowToPlay extends JPanel implements MainLayout {
 
-    private JLabel Judul = new JLabel("Tentang");
+    private JLabel Judul = new JLabel("Cara Bermain");
 
     private JTextPane isi = new JTextPane();
 
@@ -48,7 +48,7 @@ final public class HowToPlay extends JPanel implements MainLayout {
         JPanel isiPanel = new JPanel();
         isiPanel.setLayout(new BoxLayout(isiPanel,BoxLayout.X_AXIS));
         isiPanel.setBorder(new EmptyBorder(0,0,10,0));
-        isiPanel.setBackground(new Color(0,0,0,0));
+        isiPanel.setBackground(Constants.windowBg);
 
         isi.setText("Panel untuk menampilkan cara bermain Tic Tac Toe");
         isi.setOpaque(false);

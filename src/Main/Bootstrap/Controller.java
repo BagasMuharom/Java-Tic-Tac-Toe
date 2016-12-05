@@ -26,6 +26,8 @@ public class Controller {
             Constants.View.getPlayboard().getTurnPlayerName().setText(Constants.Player1Name);
             if(!Constants.PVPGame)
                 Constants.View.getPlayboard().setPVEGame();
+            else
+                Constants.View.getPlayboard().hapusWaktu();
             Constants.turnPlayer1 = true;
             Constants.View.getPlayboard().getPlayer1().setText(Constants.Player1Name);
             Constants.View.getPlayboard().getPlayer2().setText(Constants.Player2Name);
@@ -51,6 +53,9 @@ public class Controller {
                             while (Constants.Player2Name.length() <= 0 || Constants.Player2Name == null) {
                                 Constants.Player2Name = JOptionPane.showInputDialog(Constants.TicTacToeParentFrame,"Nama Player 2");
                             }
+                                Constants.GameStart = true;
+                                Constants.PVPGame = true;
+                                parent.setVisible(false);
                         }
                     }
                 }
@@ -100,26 +105,34 @@ public class Controller {
 
         // Mengecek apakah baris dan kolom sudah ada isi sebelumnya
         if(Constants.arrayBoard[row][col]==0){
+            /**
+             * Jika permainan adalah player vs player
+             * maka akan meletakkan bidak sesuai giliran
+             */
             if(Constants.PVPGame){
-                Constants.PVP.playRundown((byte) row,(byte) col);
-                Constants.View.getPlayboard().renderPlayboard();
-                if(GameHandler.winCheck()){
-                    Constants.GameEnd = true;
-                    JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,Constants.winner+" Menang");
-                    PlayAgain playAgain = new PlayAgain();
-                }
-                else{
-                    if(GameHandler.drawCheck()){
-                        Constants.GameEnd = true;
-                        JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,"Permainan seri !");
-                        PlayAgain playAgain = new PlayAgain();
-                    }
-                }
+                PVPStart((byte) row,(byte) col);
             }
             else{
                 PVEStart((byte) row,(byte) col);
             }
             Constants.View.getPlayboard().renderPlayboard();
+        }
+    }
+
+    private void PVPStart(byte row, byte col){
+        Constants.PVP.playRundown(row,col);
+        Constants.View.getPlayboard().renderPlayboard();
+        if(GameHandler.winCheck()){
+            Constants.GameEnd = true;
+            JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,Constants.winner+" Menang");
+            PlayAgain playAgain = new PlayAgain();
+        }
+        else{
+            if(GameHandler.drawCheck()){
+                Constants.GameEnd = true;
+                JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,"Permainan seri !");
+                PlayAgain playAgain = new PlayAgain();
+            }
         }
     }
 
@@ -136,9 +149,9 @@ public class Controller {
                 PlayAgain playAgain = new PlayAgain();
             }
         }
-        else{
+        else {
             Constants.timer.stop();
-            JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame,"Permainan seri !");
+            JOptionPane.showMessageDialog(Constants.TicTacToeParentFrame, "Permainan seri !");
             PlayAgain playAgain = new PlayAgain();
         }
     }

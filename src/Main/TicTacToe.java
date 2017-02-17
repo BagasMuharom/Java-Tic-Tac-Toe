@@ -6,7 +6,6 @@ package Main;
 
 import Main.Bootstrap.Controller;
 import Main.Bootstrap.View;
-import Main.Layout.MainLayout;
 import Main.Util.Constants;
 import Main.Util.PVE;
 
@@ -14,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.*;
 
-final public class TicTacToe extends JFrame implements MainLayout {
+final public class TicTacToe extends JFrame {
 
     private Main.Bootstrap.View View = new View();
     private Main.Bootstrap.Controller Controller = new Controller();
@@ -31,7 +30,7 @@ final public class TicTacToe extends JFrame implements MainLayout {
         Constants.TicTacToeParentFrame = this;
 
         //Mengatur Icon pada Window
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/icon.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Resources/favicon.png")));
 
         //Inisialisasi Komponen
         init();
@@ -65,11 +64,6 @@ final public class TicTacToe extends JFrame implements MainLayout {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TicTacToe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void actions() {
-
     }
 
     public void init(){

@@ -10,7 +10,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-final public class PlayAgain extends JDialog implements MainLayout {
+final public class BackToMenuAlert extends JDialog implements MainLayout {
+    
     private JPanel YesNoPanel = new JPanel();
 
     private JPanel YesPanel = new JPanel();
@@ -24,15 +25,15 @@ final public class PlayAgain extends JDialog implements MainLayout {
     /**
      * Judul Utama
      */
-    private JLabel mainTitle = new JLabel("Ingin mengulang ?");
+    private JLabel mainTitle = new JLabel("Apa anda yakin ?");
 
     /**
      * Konstruktor override untuk JDialog
      * Digunakan untuk melakukan inisialisasi JDialog
      */
-    public PlayAgain(){
+    public BackToMenuAlert(){
         super(Constants.TicTacToeParentFrame,true);
-        setTitle("Ingin mengulang ?");
+        setTitle("Kembali ke menu ?");
         actions();
         init();
     }
@@ -41,20 +42,19 @@ final public class PlayAgain extends JDialog implements MainLayout {
         Yes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Constants.Controller.clearPlayboard();
-                Constants.View.setView("Playboard");
                 if(!Constants.PVPGame)
-                    Constants.View.getPlayboard().setPVEGame();
+                    Constants.timer.stop();
+                Constants.View.setView("MainMenu");
+                Constants.GameStart = false;
+                Constants.GameEnd = true;
                 setVisible(false);
             }
         });
         No.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Constants.View.setView("MainMenu");
-                Constants.Controller.clearPlayboard();
-                Constants.GameStart = false;
-                Constants.GameEnd = true;
+                if(!Constants.PVPGame)
+                    Constants.timer.start();
                 setVisible(false);
             }
         });
@@ -77,7 +77,7 @@ final public class PlayAgain extends JDialog implements MainLayout {
         mainTitle.setOpaque(true);
         mainTitle.setBackground(Constants.windowBg);
         mainTitle.setFont(new Font("Helvetica",Font.BOLD
-        ,16));
+                ,16));
         mainTitle.setForeground(Color.WHITE);
 
         YesPanel.setLayout(new BorderLayout());

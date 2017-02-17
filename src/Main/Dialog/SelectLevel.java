@@ -37,7 +37,7 @@ final public class SelectLevel extends JDialog implements MainLayout {
     /**
      * Judul Utama
      */
-    private JLabel mainTitle = new JLabel("Pilih Mode");
+    private JLabel mainTitle = new JLabel("Pilih Level");
 
     /**
      * Konstruktor override untuk JDialog

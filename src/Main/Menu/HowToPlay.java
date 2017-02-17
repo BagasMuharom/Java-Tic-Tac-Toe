@@ -50,7 +50,14 @@ final public class HowToPlay extends JPanel implements MainLayout {
         isiPanel.setBorder(new EmptyBorder(0,0,10,0));
         isiPanel.setBackground(Constants.windowBg);
 
-        isi.setText("Panel untuk menampilkan cara bermain Tic Tac Toe");
+        isi.setText("1) Pertama, pilih menu permainan baru dan pilih mode yang diinginkan"+
+                "\r\n2) Nama pemain tidak boleh sama"+
+                "\r\n3) Pemain 1 akan mendapat bidak kotak merah dan pemain 2 mendapat bidak lingkaran biru"+
+                "\r\n4) Giliran awal akan diacak" +
+                "\r\n5) Untuk mode Player vs CPU, maka pemain akan dibatasi oleh waktu, jika waktu habis, maka pemain dianggap kalah"+
+                "\r\n6) Cara bermainnya adalah dengan menekan/klik salah satu dari 9 kotak yang ada dimana bidak ingin diletakkan"+
+                "\r\n7) Jika bidak anda tersusun sebanyak 3 berturut-turut secara horizontal, verikal, atau diagonal, maka akan dinyatakan menang"+
+                "\r\n8) Jika seluruh kotak telah terisi namun tidak ada yang menang, maka permainan dianggap seri");
         isi.setOpaque(false);
         isi.setForeground(Constants.warna2);
         isi.setFont(new Font("Helvetica",Font.PLAIN,15));

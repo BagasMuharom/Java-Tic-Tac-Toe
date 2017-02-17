@@ -1,5 +1,6 @@
 package Main.Menu;
 
+import Main.Dialog.BackToMenuAlert;
 import Main.Dialog.PlayAgain;
 import Main.Layout.MainLayout;
 import Main.UI.CustomButton;
@@ -57,8 +58,7 @@ final public class Playboard extends JPanel implements MainLayout {
             public void mouseClicked(MouseEvent e) {
                 if(!Constants.PVPGame)
                     Constants.timer.stop();
-                Constants.Controller.clearPlayboard();
-                Constants.Controller.destroyGame();
+                BackToMenuAlert back = new BackToMenuAlert();
             }
         });
 
@@ -193,6 +193,12 @@ final public class Playboard extends JPanel implements MainLayout {
 
     public void setPVEGame(){
         setCountdown();
+        aturWaktu();
+        if(!Constants.turnPlayer1)
+            Constants.Controller.PVEStart();
+    }
+
+    public void aturWaktu(){
         waktu.setVisible(true);
         waktu.setForeground(Color.WHITE);
         ImageIcon sw = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../Resources/stopwatchsmall.png")));
@@ -201,9 +207,7 @@ final public class Playboard extends JPanel implements MainLayout {
         waktu.setFont(new Font("Helvetica",Font.PLAIN,16));
         waktu.setHorizontalAlignment(SwingConstants.CENTER);
         atas.add(waktu,BorderLayout.CENTER);
-    }
 
-    public void setCountdown(){
         Constants.PVETime = 15;
         int level = Constants.GameLevel;
         switch(level){
@@ -217,7 +221,10 @@ final public class Playboard extends JPanel implements MainLayout {
                 Constants.PVETime = 8;
                 break;
         }
-        waktu.setText("     Waktu : " + Constants.PVETime + " detik");
+    }
+
+    public void setCountdown(){
+        Constants.PVETime--;
         Constants.timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -240,4 +247,7 @@ final public class Playboard extends JPanel implements MainLayout {
         Constants.timer.start();
     }
 
+    public JLabel getWaktu() {
+        return waktu;
+    }
 }
